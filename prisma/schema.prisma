@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+model Match {
+  id       Int      @id @default(autoincrement())
+  teamA    String
+  teamB    String
+  scoreA   Int
+  scoreB   Int
+  game     Game     @relation(fields: [gameId], references: [id])
+  gameId   Int
+  datetime DateTime
+}
+
+model Game {
+  id        Int      @id @default(autoincrement())
+  name      String   @default("")
+  matches   Match[]
+  status    String
+  draft     Draft?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Player {
+  id                  Int                   @id @default(autoincrement())
+  telegramID          BigInt
+  telegramUsername    String                @default("")
+  telegramName        String                @default("")
+  displayName         String                @default("")
+  rating              Int                   @default(0)
+  drafts              Draft[]
+  PlayersOnDraftDatas PlayersOnDraftDatas[]
+}
+
+model Draft {
+  id                  Int                   @id @default(autoincrement())
+  title               String                @default("")
+  status              String
+  pollID              String                @unique
+  game                Game                  @relation(fields: [gameId], references: [id])
+  gameId              Int                   @unique
+  players             Player[]
+  PlayersOnDraftDatas PlayersOnDraftDatas[]
+  team1PlayerIDs      String                @default("")
+  team2PlayerIDs      String                @default("")
+  team3PlayerIDs      String                @default("")
+}
+
+model PlayersOnDraftDatas {
+  player   Player @relation(fields: [playerId], references: [id])
+  playerId Int
+  draft    Draft  @relation(fields: [draftId], references: [id])
+  draftId  Int
+
+  @@id([playerId, draftId])
+}
