@@ -1,7 +1,7 @@
-import { Match } from "@prisma/client";
+import { Match } from '@prisma/client'
 
 export const buildMatchesTableData = (matches: Match[]) => {
-  if (!matches.length) return { cols: [], rows: [] };
+  if (!matches.length) return { cols: [], rows: [] }
 
   const cols = [
     {
@@ -12,12 +12,12 @@ export const buildMatchesTableData = (matches: Match[]) => {
       key: 'score',
       title: 'Счет',
     },
-  ];
+  ]
 
-  const rows = matches.map((match) => ({
+  const rows = matches.map(match => ({
     match: `${match.teamA}-${match.teamB}`,
     score: `${match.scoreA}:${match.scoreB}`,
-  }));
+  }))
 
-  return { cols, rows };
+  return { cols, rows }
 }

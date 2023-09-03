@@ -1,24 +1,25 @@
-import { Button } from "@/components/ui/button";
-import { getGameById, getGameMatches } from "@/db/queries";
-import Link from "next/link";
-import { getNextMatchBySchedule } from "./add-match/getNextMatchBySchedule";
-import { buildMatchesTableData } from "./buildMatchesTableData";
-import { buildPointsTableData } from "./buildPointsTableData";
+import Link from 'next/link'
+import { getGameById, getGameMatches } from '@/db/queries'
+
+import { Button } from '@/components/ui/button'
+
+import { getNextMatchBySchedule } from './add-match/getNextMatchBySchedule'
+import { buildMatchesTableData } from './buildMatchesTableData'
+import { buildPointsTableData } from './buildPointsTableData'
 
 interface Props {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
 export default async function GamePage({ params }: Props) {
-  const game = await getGameById(Number(params.id));
-  if (!game) return <div>404</div>;
-  const matches = await getGameMatches(game.id);
-  const nextMatch = getNextMatchBySchedule(matches);
-  const matchesTable = buildMatchesTableData(matches);
-  const pointsTable = buildPointsTableData(matches);
-  console.log(matches.length, "game");
+  const game = await getGameById(Number(params.id))
+  if (!game) return <div>404</div>
+  const matches = await getGameMatches(game.id)
+  const nextMatch = getNextMatchBySchedule(matches)
+  const matchesTable = buildMatchesTableData(matches)
+  const pointsTable = buildPointsTableData(matches)
 
   return (
     <div>
@@ -29,7 +30,7 @@ export default async function GamePage({ params }: Props) {
       <p>Матчи:</p>
       <table>
         <thead>
-          {matchesTable.cols.map((col) => (
+          {matchesTable.cols.map(col => (
             <th key={col.key}>{col.title}</th>
           ))}
         </thead>
@@ -47,7 +48,7 @@ export default async function GamePage({ params }: Props) {
       <p>Очки:</p>
       <table>
         <thead>
-          {pointsTable.cols.map((col) => (
+          {pointsTable.cols.map(col => (
             <th key={col.key}>{col.title}</th>
           ))}
         </thead>
@@ -71,5 +72,5 @@ export default async function GamePage({ params }: Props) {
       </a>
       {/* {activeGame ? <Link href={`/game/${activeGame.id}`}><Button>Продолжить игру</Button></Link> : <Link href='/game/new'><Button>Новая игра</Button></Link>} */}
     </div>
-  );
+  )
 }

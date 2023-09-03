@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
-import prisma from "@/db/prisma";
-import { getActiveGame } from "@/db/queries";
-import Link from "next/link";
+import Link from 'next/link'
+import prisma from '@/db/prisma'
+import { getActiveGame } from '@/db/queries'
+
+import { Button } from '@/components/ui/button'
 
 export default async function HomePage() {
-  const activeGame = await getActiveGame();
+  const activeGame = await getActiveGame()
 
   return (
     <div>
@@ -14,10 +15,10 @@ export default async function HomePage() {
           <Button>Продолжить игру</Button>
         </Link>
       ) : (
-        <Link href="/game/new">
+        <Link href='/game/new'>
           <Button>Новая игра</Button>
         </Link>
       )}
     </div>
-  );
+  )
 }

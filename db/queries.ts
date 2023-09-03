@@ -1,5 +1,6 @@
-import { GameStatus } from "@/types/GameStatus"
-import prisma from "./prisma"
+import { GameStatus } from '@/types/GameStatus'
+
+import prisma from './prisma'
 
 export const getActiveGame = () => {
   return prisma.game.findFirst({
@@ -30,4 +31,3 @@ export const getGameMatches = (gameId: number) => {
     },
   })
 }
-
