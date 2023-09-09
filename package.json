@@ -3,14 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "yarn dev:bot & yarn dev:app",
-    "build": "yarn build:app",
-    "start": "yarn start:bot & yarn start:app",
-    "dev:bot": "nodemon ./bot/index.mjs",
-    "start:bot": "node ./bot/index.mjs",
-    "dev:app": "next dev",
-    "build:app": "next build",
-    "start:app": "next start",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prepare": "husky install"

@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
+module.exports = (phase, { defaultConfig }) => {
+  const nextConfig = {
+    experimental: {
+      serverActions: true,
+    },
+  }
+  return nextConfig
 }
-
-module.exports = nextConfig
